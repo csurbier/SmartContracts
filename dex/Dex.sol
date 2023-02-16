@@ -117,7 +117,7 @@ contract Dex {
             Order memory order = orders[i-1];
             orders[i-1] = orders[i];
             orders[i] = order;
-            i = i.sub(1)
+            i = i.sub(1);
         }
         nextOrderId = nextOrderId.add(1);
     }
