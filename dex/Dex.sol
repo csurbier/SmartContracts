@@ -14,6 +14,7 @@ contract Dex {
     }
 
     struct Token {
+       
         bytes32 ticker;
         address tokenAddress;
     }
@@ -192,7 +193,29 @@ contract Dex {
     
     }
 
+        //below the constructor:
+        function getOrders(
+        bytes32 ticker, 
+        Side side) 
+        external 
+        view
+        returns(Order[] memory) {
+        return orderBook[ticker][uint(side)];
+        }
 
+     function getTokens() 
+      external 
+      view 
+      returns(Token[] memory) {
+      Token[] memory _tokens = new Token[](tokenList.length);
+      for (uint i = 0; i < tokenList.length; i++) {
+        _tokens[i] = Token(
+          tokens[tokenList[i]].ticker,
+          tokens[tokenList[i]].tokenAddress
+        );
+      }
+      return _tokens;
+    }
       modifier onlyAdmin(){
          require(msg.sender == admin, "Only admin ");
          _;
